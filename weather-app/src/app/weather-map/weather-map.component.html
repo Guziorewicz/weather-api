@@ -1,0 +1,44 @@
+<div class="flex flex-col lg:flex-row justify-center items-start lg:items-center min-h-screen bg-gradient-to-r from-blue-400 to-indigo-500 p-10 space-y-10 lg:space-y-0 lg:space-x-10">    <!-- Lista miast -->
+    <div class="bg-white shadow-2xl border-l-4 border-gray-300 border-b-4 rounded-lg p-6 w-full lg:w-1/3 max-w-xs lg:max-w-md">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-800">Available cities</h2>
+      <ul class="bg-gray-100 p-4 rounded-lg shadow-inner text-base">
+        @for(city of cities; track city){
+        <li (click)="getWeatherData(city)" 
+            class="cursor-pointer hover:bg-gray-200 p-2 rounded-md transition-colors duration-200">
+            {{ city.name }}
+        </li>
+         }
+      </ul>
+    </div>
+    
+    <!-- Data section -->
+    <div class="bg-white shadow-2xl border-l-4 border-gray-300 border-b-4 rounded-lg p-6 w-full lg:w-1/3 max-w-xs lg:max-w-md">
+      @if(isDataFetched) {
+        <h2 class="text-2xl font-semibold mb-4 mt-2 text-gray-800">{{ targetedCity }}</h2>
+        <div class="bg-gray-100 p-4 rounded-lg shadow-inner text-base w-full">
+          Local time - {{ currentCityTime }}
+      </div>
+      
+      <div class="bg-gray-100 p-4 rounded-lg shadow-inner text-base flex justify-between w-full items-center">
+          <div class="inline-flex items-center space-x-2">
+              <img class="w-4 h-4" src="sunrise.png" alt="Sunrise">
+              <span>{{ weatherData.sunrise | date:'hh:mm a' }}</span>
+          </div>
+          <div class="inline-flex items-center space-x-2">
+              <img class="w-4 h-4" src="sunset.png" alt="Sunset">
+              <span>{{ weatherData.sunset | date:'hh:mm a' }}</span>
+          </div>
+      </div>
+      <pre class="bg-gray-100 p-4 rounded-lg shadow-inner text-base">Temperature - {{ weatherData.temperature }} °C</pre>
+      <pre class="bg-gray-100 p-4 rounded-lg shadow-inner text-base">Windspeed - {{ weatherData.windspeed }} km/h</pre>
+      <pre class="bg-gray-100 p-4 rounded-lg shadow-inner text-base">Humidity - {{ weatherData.humidity }} %</pre>
+      <pre class="bg-gray-100 p-4 rounded-lg shadow-inner text-base">Precipitation - {{ weatherData.precipitation }} mm</pre>
+      <pre class="bg-gray-100 p-4 rounded-lg shadow-inner text-base">Cloudcover - {{ weatherData.cloudcover }} %</pre>
+      <pre class="bg-gray-100 p-4 rounded-lg shadow-inner text-base">Pressure - {{ weatherData.pressure }} hPa</pre>
+      
+      } @else {
+        <h2 class="text-2xl font-semibold mb-4 text-gray-800">Select city</h2>
+      }
+    </div>
+  </div>
+  
